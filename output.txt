@@ -1,0 +1,56 @@
+Started by GitHub push by Praj0496
+Running as SYSTEM
+Building in workspace /var/lib/jenkins/workspace/Ansible docker job
+The recommended git tool is: NONE
+using credential Github
+ > git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/Ansible docker job/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/Praj0496/Ansible-docker.git # timeout=10
+Fetching upstream changes from https://github.com/Praj0496/Ansible-docker.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.34.1'
+using GIT_ASKPASS to set credentials Git repo credentials
+ > git fetch --tags --force --progress -- https://github.com/Praj0496/Ansible-docker.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision e17ab88e94ee6584dd689412324983ba722d86b8 (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f e17ab88e94ee6584dd689412324983ba722d86b8 # timeout=10
+Commit message: "Update index.html"
+ > git rev-list --no-walk 1884ed59b803948239e33463a7fb5a2c47ccec27 # timeout=10
+[Ansible docker job] $ /usr/bin/ansible-playbook docker-playbook.yaml -f 5 --private-key /tmp/ssh15794225750338503132.key -u ubuntu
+
+PLAY [Update and Create image] *************************************************
+
+TASK [Synchronize files from Jenkins workspace to Docker server] ***************
+[DEPRECATION WARNING]: The connection's stdin object is deprecated. Call 
+display.prompt_until(msg) instead. This feature will be removed in version 
+2.19. Deprecation warnings can be disabled by setting 
+deprecation_warnings=False in ansible.cfg.
+changed: [34.44.3.120]
+
+TASK [Stop docker container] ***************************************************
+[DEPRECATION WARNING]: The default value "ignore" for image_name_mismatch has 
+been deprecated and will change to "recreate" in community.docker 4.0.0. In the
+ current situation, this would cause the container to be recreated since the 
+current container's image name "app_image_test:latest" does not match the 
+desired image name "app_image_test". This feature will be removed from 
+community.docker in version 4.0.0. Deprecation warnings can be disabled by 
+setting deprecation_warnings=False in ansible.cfg.
+changed: [34.44.3.120]
+
+TASK [Remove docker container] *************************************************
+changed: [34.44.3.120]
+
+TASK [Remove docker image] *****************************************************
+changed: [34.44.3.120]
+
+TASK [Create new docker image] *************************************************
+changed: [34.44.3.120]
+
+TASK [Create docker container] *************************************************
+changed: [34.44.3.120]
+
+PLAY RECAP *********************************************************************
+34.44.3.120                : ok=6    changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+Finished: SUCCESS
