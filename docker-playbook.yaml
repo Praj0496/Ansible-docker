@@ -1,0 +1,46 @@
+---
+- name: Update and Create image
+  hosts: dockerserver
+  remote_user: ubuntu
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Synchronize files from Jenkins workspace to Docker server
+      synchronize:
+        src: "/var/lib/jenkins/workspace/Ansible docker job/"
+        dest: "/home/ubuntu/website"
+        recursive: yes
+
+    - name: Stop docker container
+      docker_container:
+        name: app-container
+        image: app_image_test
+        state: stopped
+
+    - name: Remove docker container
+      docker_container:
+        name: app-container
+        state: absent
+
+    - name: Remove docker image
+      docker_image:
+        name: app_image_test
+        tag: latest
+        state: absent
+
+    - name: Create new docker image
+      docker_image:
+        name: app_image_test
+        tag: latest
+        source: build
+        build:
+          path: "/home/ubuntu/website"
+        state: present
+
+    - name: Create docker container
+      docker_container:
+        name: app-container
+        image: app_image_test:latest
+        state: started
+        ports:
+        - "80:80"
